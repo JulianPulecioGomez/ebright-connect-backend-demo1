@@ -1,0 +1,151 @@
+{% extends '@!EasyAdmin/crud/new.html.twig' %}
+
+
+{% block main %}
+    <link href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <link rel="stylesheet" type="text/css" href="prism.css">
+    <script src="prism.js"></script>
+    
+    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+
+    <div class="content-panel p-3">
+    {% block new_form %}
+        <div id="smartwizard">
+
+    <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#step-1">
+            Step 1
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#step-2">
+            Step 2
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#step-3">
+            Step 3
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#step-4">
+            Step 4
+          </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="step-1" class="tab-pane p-5" role="tabpanel" aria-labelledby="step-1">
+            <textarea id="codesample" class="p-5">
+            <p style="text-align: center; font-size: 15px;"><img title="TinyMCE Logo" src="//www.tiny.cloud/images/glyph-tinymce@2x.png" alt="TinyMCE Logo" width="110" height="97" /></p>
+            <h2 style="text-align: center;">TinyMCE Code Sample Plugin</h2>
+            <p style="text-align: center;">Code Sample automatically applies color highlighting to PRE and CODE elements. Highlight some text, click the Code Sample button to see `code` applied to the text.</p>
+            <h3 style="text-align: center;">How to insert a snippet</h3>
+            <p style="text-align: center;">To create a snippet, insert the cursor on a new/empty line and click the Code Sample button in the toolbar. Add a code snippet to the modal, select the language and click OK to add the snippet to the page.</p>
+            <p style="text-align: center">Note: this demo includes the Code plugin, which enables a <strong>code view</strong>. You can use this to see how Code Sample changes the HTML in the editable area.</p>
+            </textarea>
+        </div>
+        <div id="step-2" class="tab-pane" role="tabpanel" aria-labelledby="step-2">
+            Step 2 Content
+        </div>
+        <div id="step-3" class="tab-pane" role="tabpanel" aria-labelledby="step-3">
+            Step 3 Content
+        </div>
+        <div id="step-4" class="tab-pane" role="tabpanel" aria-labelledby="step-4">
+            Step 4 Content
+        </div>
+    </div>
+</div>
+        {# {{ form_start(new_form) }}
+            <div class="row">
+                <div class="col-sm">            
+                {{form_row(new_form.logo)}}
+                </div>
+                <div class="col-sm">
+                {{form_row(new_form.styleSheet)}}
+                </div>
+                <div class="col-sm">
+                {{form_row(new_form.favicon)}}
+                </div>
+            </div>
+        {{ form_end(new_form) }} #}
+    {% endblock new_form %}
+    </div>
+{% endblock %}
+
+{% block body_javascript %}
+    {{parent()}}
+    <script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+        $('#smartwizard').smartWizard({
+            selected: 0, // Initial selected step, 0 = first step
+            theme: 'default', // theme for the wizard, related css need to include for other than default theme
+            justified: true, // Nav menu justification. true/false
+            darkMode:false, // Enable/disable Dark Mode if the theme supports. true/false
+            autoAdjustHeight: true, // Automatically adjust content height
+            cycleSteps: false, // Allows to cycle the navigation of steps
+            backButtonSupport: true, // Enable the back button support
+            enableURLhash: true, // Enable selection of the step based on url hash
+            transition: {
+                animation: 'none', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+                speed: '400', // Transion animation speed
+                easing:'' // Transition animation easing. Not supported without a jQuery easing plugin
+            },
+            toolbarSettings: {
+                toolbarPosition: 'bottom', // none, top, bottom, both
+                toolbarButtonPosition: 'right', // left, right, center
+                showNextButton: true, // show/hide a Next button
+                showPreviousButton: true, // show/hide a Previous button
+                toolbarExtraButtons: [] // Extra buttons to show on toolbar, array of jQuery input/buttons elements
+            },
+            anchorSettings: {
+                anchorClickable: true, // Enable/Disable anchor navigation
+                enableAllAnchors: false, // Activates all anchors clickable all times
+                markDoneStep: true, // Add done state on navigation
+                markAllPreviousStepsAsDone: true, // When a step selected by url hash, all previous steps are marked done
+                removeDoneStepOnNavigateBack: false, // While navigate back done step after active step will be cleared
+                enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+            },
+            keyboardSettings: {
+                keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                keyLeft: [37], // Left key code
+                keyRight: [39] // Right key code
+            },
+            lang: { // Language variables for button
+                next: 'Next',
+                previous: 'Previous'
+            },
+            disabledSteps: [], // Array Steps disabled
+            errorSteps: [], // Highlight step with errors
+            hiddenSteps: [] // Hidden steps
+            });
+
+            tinymce.init({
+            selector: 'textarea#codesample',
+            height: 500,
+            plugins: 'codesample code',
+            codesample_languages: [
+                {text: 'HTML/XML', value: 'markup'},
+                {text: 'JavaScript', value: 'javascript'},
+                {text: 'CSS', value: 'css'},
+                {text: 'PHP', value: 'php'},
+                {text: 'Ruby', value: 'ruby'},
+                {text: 'Python', value: 'python'},
+                {text: 'Java', value: 'java'},
+                {text: 'C', value: 'c'},
+                {text: 'C#', value: 'csharp'},
+                {text: 'C++', value: 'cpp'}
+            ],
+            toolbar: 'codesample code',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            });
+
+        </script>
+{% endblock %}
